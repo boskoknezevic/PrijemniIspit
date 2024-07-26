@@ -1,0 +1,7 @@
+INSERT INTO KORISNIK (JMBG, Ime, Prezime, Email, Lozinka, TipKorisnika) VALUES ('1111111111111', 'Admin', 'Admin', 'admin@admin.com', 'lozinka', 'admin');
+
+INSERT INTO SMER (Opis) VALUES ('Softversko inzenjerstvo - Matematika');
+INSERT INTO SMER (Opis) VALUES ('Inzenjerski menadzment - Marketing');
+INSERT INTO SMER (Opis) VALUES ('Inzenjer zastite zivotne sredine - Biologija');
+INSERT INTO SMER (Opis) VALUES ('Masinski inzenjer - Fizika');
+INSERT INTO SMER (Opis) VALUES ('Inzenjer nafte i gasa - Hemija');

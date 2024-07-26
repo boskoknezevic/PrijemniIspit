@@ -1,0 +1,26 @@
+CREATE PROCEDURE [ObrisiRezultat](
+@IDRezultata [int])
+AS
+BEGIN
+Delete from ZAHTEV where IDRezultata=@IDRezultata
+END
+GO
+
+CREATE PROCEDURE [IzmeniRezultat](
+@IDRezultata [int],
+@JMBGKorisnika [nvarchar](13),
+@IDIspita [int],
+@Bodovi [int]
+)
+AS
+BEGIN
+Update KORISNIK set JMBGKorisnika=@JMBGKorisnika, IDIspita=@IDIspita, Bodovi=@Bodovi where IDRezultata=@IDRezultata
+END
+GO
+
+CREATE PROCEDURE [DajSveRezultate]
+AS
+BEGIN
+SELECT * FROM RezultatSaStudentomIIspitom 
+END
+GO

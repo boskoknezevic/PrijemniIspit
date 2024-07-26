@@ -1,0 +1,24 @@
+CREATE PROCEDURE OdobriPrijavuIKreirajRezultat
+    @IDPrijave INT
+AS
+BEGIN
+    BEGIN TRANSACTION;
+
+    BEGIN TRY
+        UPDATE PRIJAVA
+        SET Status = 'odobren'
+        WHERE IDPrijave = @IDPrijave;
+
+        INSERT INTO REZULTAT (JMBGKorisnika, IDIspita, Bodovi)
+        SELECT JMBGKorisnika, IDIspita, 0
+        FROM PRIJAVA
+        WHERE IDPrijave = @IDPrijave;
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+
+        THROW;
+    END CATCH
+END;

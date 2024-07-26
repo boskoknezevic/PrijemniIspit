@@ -1,0 +1,25 @@
+CREATE PROCEDURE [NoviIspit]
+( 
+@IDSmera [int],
+@Datum [date],
+@Vreme [time],
+@Sala [int]
+)
+AS
+BEGIN
+Insert into ISPIT(IDSmera, Datum, Vreme, Sala) values (@IDSmera, @Datum, @Vreme, @Sala)
+END
+GO
+
+CREATE PROCEDURE [ObrisiIspit](
+@IDIspita [int])
+AS
+BEGIN
+Delete from ISPIT where IDIspita=@IDIspita
+END
+GO
+
+CREATE PROCEDURE [DajSveIspite]
+AS
+select * from IspitSaSmerom
+GO

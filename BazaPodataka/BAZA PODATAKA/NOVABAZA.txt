@@ -1,0 +1,80 @@
+USE [master]
+GO
+
+CREATE DATABASE [PrijemniIspit] 
+GO
+
+USE [PrijemniIspit]
+GO
+
+CREATE TABLE [dbo].[KORISNIK](
+	[JMBG] [nvarchar](13) NOT NULL PRIMARY KEY,
+	[Ime] [nvarchar](20) NOT NULL,
+	[Prezime] [nvarchar](40) NOT NULL,
+	[Email] [nvarchar](40) NOT NULL,
+	[Lozinka] [nvarchar](20) NOT NULL,
+	[TipKorisnika] [nvarchar](20) NOT NULL
+)
+GO
+
+
+CREATE TABLE [dbo].[PRIJAVA](
+	[IDPrijave] [int] IDENTITY(1,1) PRIMARY KEY,
+	[JMBGKorisnika] [nvarchar](13) NOT NULL,
+	[IDIspita] [int] NOT NULL,
+	[Status] [nvarchar] NOT NULL
+)
+GO
+
+CREATE TABLE [dbo].[ISPIT](
+	[IDIspita] [int] IDENTITY(1,1) PRIMARY KEY,
+	[IDSmera] [int] NOT NULL,
+	[Datum] [date] NOT NULL,
+	[Vreme] [time] NOT NULL,
+	[Sala] [int] NOT NULL
+)
+GO
+
+CREATE TABLE [dbo].[REZULTAT](
+	[IDRezultata] [int] IDENTITY(1,1) PRIMARY KEY,
+	[JMBGKorisnika] [nvarchar](13) NOT NULL,
+	[IDIspita] [int] NOT NULL,
+	[Bodovi] [int] NOT NULL
+)
+GO
+
+CREATE TABLE [dbo].[SMER](
+	[IDSmera] [int] IDENTITY(1,1) PRIMARY KEY,
+	[Opis] [nvarchar](40) NOT NULL
+)
+GO
+
+ALTER TABLE [dbo].[PRIJAVA] ADD CONSTRAINT
+[FK_PRIJAVA_KORISNIK] FOREIGN KEY([JMBGKorisnika])
+REFERENCES [dbo].[KORISNIK] ([JMBG])
+ON UPDATE CASCADE
+GO
+
+ALTER TABLE [dbo].[PRIJAVA] ADD CONSTRAINT
+[FK_PRIJAVA_ISPIT] FOREIGN KEY([IDIspita])
+REFERENCES [dbo].[ISPIT] ([IDIspita])
+ON UPDATE CASCADE
+GO
+
+ALTER TABLE [dbo].[ISPIT] ADD CONSTRAINT
+[FK_ISPIT_SMER] FOREIGN KEY([IDSmera])
+REFERENCES [dbo].[SMER] ([IDSmera])
+ON UPDATE CASCADE
+GO
+
+ALTER TABLE [dbo].[REZULTAT] ADD CONSTRAINT
+[FK_REZULTAT_KORISNIK] FOREIGN KEY([JMBGKorisnika])
+REFERENCES [dbo].[KORISNIK] ([JMBG])
+ON UPDATE CASCADE
+GO
+
+ALTER TABLE [dbo].[REZULTAT] ADD CONSTRAINT
+[FK_REZULTAT_ISPIT] FOREIGN KEY([IDIspita])
+REFERENCES [dbo].[ISPIT] ([IDIspita])
+ON UPDATE CASCADE
+GO

@@ -1,0 +1,32 @@
+CREATE PROCEDURE [NovaPrijava]
+( 
+@JMBGKorisnika [nvarchar](13),
+@IDIspita [int]
+)
+AS
+BEGIN
+Insert into ISPIT(JMBGKorisnika, IDIspita, Status) values (@JMBGKorisnika, @IDIspita, 'na_cekanju')
+END
+GO
+
+CREATE PROCEDURE [DajSvePrijave]
+AS
+select * from PrijavaSaIspitomIKorisnikom
+GO
+
+CREATE PROCEDURE [DajSvePrijavePoIspitu]
+(
+@IDIspita [int]
+)
+AS
+select * from PrijavaSaIspitomIKorisnikom where IDIspita=@IDIspita
+GO
+
+CREATE PROCEDURE [DajPrijavuPoIspituIKorisniku]
+(
+@IDIspita [int],
+@JMBGKorisnika [nvarchar](13)
+)
+AS
+select * from PrijavaSaIspitomIKorisnikom where IDIspita=@IDIspita && JMBGKorisnika=@JMBGKorisnika
+GO

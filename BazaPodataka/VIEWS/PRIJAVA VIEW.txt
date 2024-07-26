@@ -1,0 +1,14 @@
+CREATE VIEW PrijavaSaIspitomIKorisnikom AS
+SELECT
+    KORISNIK.Ime,
+    KORISNIK.Prezime,
+    SMER.Opis,
+    PRIJAVA.Status
+FROM
+    PRIJAVA
+JOIN
+    KORISNIK ON PRIJAVA.JMBGKorisnika = KORISNIK.JMBG
+JOIN
+    ISPIT ON PRIJAVA.IDIspita = ISPIT.IDIspita
+JOIN
+    SMER ON ISPIT.IDSmera = SMER.IDSmer;

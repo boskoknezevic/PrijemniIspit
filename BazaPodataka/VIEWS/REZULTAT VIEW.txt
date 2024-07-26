@@ -1,0 +1,14 @@
+CREATE VIEW RezultatSaStudentomIIspitom AS
+SELECT
+    KORISNIK.Ime,
+    KORISNIK.Prezime,
+    SMER.Opis,
+    REZULTAT.Bodovi
+FROM
+    REZULTAT
+JOIN
+    KORISNIK ON REZULTAT.JMBGKorisnika = KORISNIK.JMBG
+JOIN
+    ISPIT ON REZULTAT.IDIspita = ISPIT.IDIspita
+JOIN
+    SMER ON ISPIT.IDSmera = SMER.IDSmer;

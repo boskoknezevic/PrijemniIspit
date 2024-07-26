@@ -1,0 +1,40 @@
+﻿@using System.Data
+
+@{
+    ViewData["Title"] = "Резултати";
+}
+
+<h1>Списак неунесених резултата:</h1>
+
+@if (Model != null && Model.Tables.Count > 0 && Model.Tables[0].Rows.Count > 0)
+{
+    <table>
+        <tr>
+            <th>Име</th>
+            <th>Презиме</th>
+            <th>Смер</th>
+            <th>Резултат</th>
+            <th></th> 
+        </tr>
+        @foreach (DataRow row in Model.Tables[0].Rows)
+        {
+            <tr>
+                <td>@row["Ime"]</td>
+                <td>@row["Prezime"]</td>
+                <td>@row["Opis"]</td>
+                <td>@row["Bodovi"]</td>
+                <td>
+                    <form method="post" asp-action="UnesiRezultate">
+                        <input type="hidden" name="IDRezultata" value="@row["IDRezultata"]" />
+                        <input type="number" name="NoviRezultat" min="1" max="100" />
+                        <button class="btn btn-success" type="submit">Dodaj</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>Нема резултата за штампу.</p>
+}

@@ -1,0 +1,63 @@
+﻿@using System.Data
+@model System.Data.DataSet
+
+@{
+    ViewData["Title"] = "Закажи нови испит и списак свих испита";
+}
+
+<h2>Закажи нови испит:</h2>
+
+<form method="post" action="@Url.Action("AdminZakaziIspit", "Admin")">
+    <div class="form-group">
+        <label for="datum">Датум:</label>
+        <input type="date" id="datum" name="datum" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="vreme">Време:</label>
+        <input type="time" id="vreme" name="vreme" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="smer">Изаберите смер:</label>
+        <select id="smer" name="smer" class="form-control" required>
+            <option value="">Изаберите...</option>
+            @foreach (var smer in ViewBag.Smerovi)
+            {
+                <option value="@smer.IDSmera">@smer.Opis</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Закажи испит</button>
+</form>
+
+<hr />
+
+<h1>Списак свих испита:</h1>
+
+@if (Model != null && Model.Tables.Count > 0 && Model.Tables[0].Rows.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Датум</th>
+                <th>Време</th>
+                <th>Сала</th>
+                <th>Смер</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow row in Model.Tables[0].Rows)
+            {
+                <tr>
+                    <td>@((DateTime)row["Datum"])</td>
+                    <td>@row["Vreme"]</td>
+                    <td>@row["Sala"]</td>
+                    <td>@row["Opis"]</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Нема испитa.</p>
+}

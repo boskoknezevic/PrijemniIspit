@@ -1,0 +1,12 @@
+CREATE VIEW IspitSaSmerom AS
+SELECT
+    SMER.Opis,
+    ISPIT.Datum,
+    ISPIT.Vreme,
+    ISPIT.Sala
+FROM
+    ISPIT
+JOIN
+    SMER ON ISPIT.IDSmera = SMER.IDSmera
+
+

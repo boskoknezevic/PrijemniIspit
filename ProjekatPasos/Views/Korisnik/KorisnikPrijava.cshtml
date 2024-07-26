@@ -1,0 +1,53 @@
+﻿@using System.Data;
+@model System.Data.DataSet
+
+@{
+    ViewData["Title"] = "Пријава испита";
+}
+
+<h1>Пријава испита</h1>
+
+<form asp-controller="Korisnik" asp-action="PrijaviIspit" method="post">
+    <div class="form-group">
+        <label for="ispitSelect">Изаберите испит:</label>
+        <select id="ispitSelect" name="IDIspita" class="form-control">
+            @if (Model != null && Model.Tables.Contains("SviIspiti") && Model.Tables["SviIspiti"].Rows.Count > 0)
+            {
+                @foreach (DataRow row in Model.Tables["SviIspiti"].Rows)
+                {
+                    <option value="@row["IDIspita"]">@row["Opis"]</option>
+                }
+            }
+            else
+            {
+                <option value="">Нема доступних испита</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Потврди</button>
+</form>
+
+<h1>Пријављени испити:</h1>
+
+@if (Model != null && Model.Tables.Contains("PrijavljeniIspiti") && Model.Tables["PrijavljeniIspiti"].Rows.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Назив испита</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataRow row in Model.Tables["PrijavljeniIspiti"].Rows)
+            {
+                <tr>
+                    <td>@row["Opis"]</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Нема пријављених испита.</p>
+}
